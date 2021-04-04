@@ -2,40 +2,10 @@ import React from 'react';
 
 class CartItem extends React.Component
 {
-    constructor()
-    {
-        super();
-        this.state={
-            title:'Phone',
-            price:999,
-            qty:1,
-            img:''
-        }
-    }
-
-    increaseQuantity =()=>{
-        
-        this.setState((prevState)=>{
-            return {
-                qty: prevState.qty+1 
-            }
-        })
-    }
-    decreaseQuantity =()=>{
-        const qty=this.state.qty;
-        if(qty==0) return;
-        this.setState((prevState)=>{
-            return {
-                qty:prevState.qty-1
-                
-            }
-        })
-    }
-
-
     render()
     {
-        const {price,title,qty}=this.state;
+        const {product,increaseQuantity,decreaseQuantity,deleteItem}=this.props;
+        const {price,title,qty,id}=product;
         return (
             <div className="cart-item">
                 <div className="left-block">
@@ -46,11 +16,12 @@ class CartItem extends React.Component
                     <div style={{color:'grey'}}>Rs {price}</div>
                     <div style={{color:'grey'}}>Qty:{qty}</div>
                     <div className="cart-item-actions">
-                        <img alt="increase" className="action-icons" src="https://image.flaticon.com/icons/png/128/148/148764.png" onClick = {this.increaseQuantity} ></img>
+                        <img alt="increase" className="action-icons" src="https://image.flaticon.com/icons/png/128/148/148764.png" onClick = {()=>increaseQuantity(product)} ></img>
 
-                        <img alt="decrease" className="action-icons" src="https://image.flaticon.com/icons/png/128/929/929430.png" onClick={this.decreaseQuantity}></img>
+                        <img alt="decrease" className="action-icons" src="https://image.flaticon.com/icons/png/128/929/929430.png" onClick={()=>decreaseQuantity(product)}></img>
 
-                        <img alt="delete" className="action-icons" src="https://t3.ftcdn.net/jpg/02/76/19/96/240_F_276199650_Hs5K3QnXm9ZMBLd3DT44YcdWUIf8GHxO.jpg" ></img>
+                        <img alt="delete" className="action-icons" src="https://t3.ftcdn.net/jpg/02/76/19/96/240_F_276199650_Hs5K3QnXm9ZMBLd3DT44YcdWUIf8GHxO.jpg"
+                        onClick= {()=> deleteItem(id)}></img>
 
                         
                     </div>
